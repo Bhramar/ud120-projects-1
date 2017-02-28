@@ -1,0 +1,252 @@
+In this mini-project, we’ll tackle the exact same email author ID problem as the Naive Bayes mini-project, but now with an SVM. What we find will help clarify some of the practical differences between the two algorithms. This project also gives us a chance to play around with parameters a lot more than Naive Bayes did, so we will do that too.
+
+Go to the svm directory to find the starter code (svm/svm_author_id.py).
+
+Import, create, train and make predictions with the sklearn SVC classifier. When creating the classifier, use a linear kernel (if you forget this step, you will be unpleasantly surprised by how long the classifier takes to train). What is the accuracy of the classifier?
+
+---
+Answer
+no. of Chris training emails: 7936
+no. of Sara training emails: 7884
+Time to train SVC(Kernel=Linear): 166.8795 s
+Time to predict SVC(Kernel=Linear): 15.3863 s
+Prediction 
+[0 0 1 ..., 1 0 0]
+accuracy
+0.984072810011
+
+----------
+One way to speed up an algorithm is to train it on a smaller training dataset. The tradeoff is that the accuracy almost always goes down when you do this. Let’s explore this more concretely: add in the following two lines immediately before training your classifier. 
+
+features_train = features_train[:len(features_train)/100] 
+labels_train = labels_train[:len(labels_train)/100] 
+
+These lines effectively slice the training dataset down to 1% of its original size, tossing out 99% of the training data. You can leave all other code unchanged. What’s the accuracy now?
+
+no. of Chris training emails: 7936
+no. of Sara training emails: 7884
+BEFORE----
+len(features_train)
+15820
+len(labels_train)
+15820
+AFTER------
+len(features_train)
+158
+len(labels_train)
+158
+Time to train SVC(Kernel=Linear): 0.0931 s
+Time to predict SVC(Kernel=Linear): 0.9296 s
+Prediction 
+[0 1 1 ..., 1 0 1]
+accuracy
+0.884527872582
+
+-------
+
+Q:
+Keep the training set slice code from the last quiz, so that you are still training on only 1% of the full training set. Change the kernel of your SVM to “rbf”. What’s the accuracy now, with this more complex kernel?
+
+no. of Chris training emails: 7936
+no. of Sara training emails: 7884
+BEFORE----
+len(features_train)
+15820
+len(labels_train)
+15820
+AFTER------
+len(features_train)
+158
+len(labels_train)
+158
+Time to train SVC(Kernel=RBF): 0.1021 s
+Time to predict SVC(Kernel=RBF): 1.0887 s
+Prediction 
+[0 1 1 ..., 1 1 1]
+accuracy
+0.616040955631
+
+
+-------
+Q:
+Keep the training set size and rbf kernel from the last quiz, but try several values of C (say, 10.0, 100., 1000., and 10000.). Which one gives the best accuracy?
+
+C=10
+no. of Chris training emails: 7936
+no. of Sara training emails: 7884
+BEFORE----
+len(features_train)
+15820
+len(labels_train)
+15820
+AFTER------
+len(features_train)
+158
+len(labels_train)
+158
+Time to train SVC(Kernel=RBF,c=10.0): 0.1031 s
+Time to predict SVC(Kernel=RBF,c=10.0): 1.0877 s
+Prediction 
+[0 1 1 ..., 1 1 1]
+accuracy
+0.616040955631
+
+----
+C=100
+no. of Chris training emails: 7936
+no. of Sara training emails: 7884
+BEFORE----
+len(features_train)
+15820
+len(labels_train)
+15820
+AFTER------
+len(features_train)
+158
+len(labels_train)
+158
+Time to train SVC(Kernel=RBF,C=100.0): 0.1031 s
+Time to predict SVC(Kernel=RBF,C=100.0): 1.1418 s
+Prediction 
+[0 1 1 ..., 1 1 1]
+accuracy
+0.616040955631
+
+----
+C=1000
+no. of Chris training emails: 7936
+no. of Sara training emails: 7884
+BEFORE----
+len(features_train)
+15820
+len(labels_train)
+15820
+AFTER------
+len(features_train)
+158
+len(labels_train)
+158
+Time to train SVC(Kernel=RBF,C=1000.0): 0.0991 s
+Time to predict SVC(Kernel=RBF,C=1000.0): 1.3559 s
+Prediction 
+[0 1 1 ..., 1 0 1]
+accuracy
+0.821387940842
+
+------
+C=10000
+no. of Chris training emails: 7936
+no. of Sara training emails: 7884
+BEFORE----
+len(features_train)
+15820
+len(labels_train)
+15820
+AFTER------
+len(features_train)
+158
+len(labels_train)
+158
+Time to train SVC(Kernel=RBF,C=10000.0): 0.0961 s
+Time to predict SVC(Kernel=RBF,C=10000.0): 0.8856 s
+Prediction 
+[0 1 1 ..., 1 0 1]
+accuracy
+0.892491467577
+
+-----
+
+Once you've optimized the C value for your RBF kernel, what accuracy does it give? Does this C value correspond to a simpler or more complex decision boundary?
+
+(If you're not sure about the complexity, go back a few videos to the "SVM C Parameter" part of the lesson. The result that you found there is also applicable here, even though it's now much harder or even impossible to draw the decision boundary in a simple scatterplot.)
+
+answer: Complex
+
+
+-----
+
+Q:
+Now that you’ve optimized C for the RBF kernel, go back to using the full training set. In general, having a larger training set will improve the performance of your algorithm, so (by tuning C and training on a large dataset) we should get a fairly optimized result. What is the accuracy of the optimized SVM?
+START QUIZ
+
+ANSWER:
+no. of Chris training emails: 7936
+no. of Sara training emails: 7884
+BEFORE----
+len(features_train)
+15820
+len(labels_train)
+15820
+Time to train SVC(Kernel=RBF,C=10000.0): 101.0315 s
+Time to predict SVC(Kernel=RBF,C=10000.0): 10.1788 s
+Prediction 
+[0 0 1 ..., 1 0 0]
+accuracy
+0.990898748578
+
+
+
+---
+
+C:\bsb\Tool\py\WinPython-64bit-3.6.0.1Qt5\python-3.6.0.amd64\lib\site-packages\sklearn\cross_validation.py:44: DeprecationWarning: This module was deprecated in version 0.18 in favor of the model_selection module into which all the refactored classes and functions are moved. Also note that the interface of the new CV iterators are different from that of this module. This module will be removed in 0.20.
+  "This module will be removed in 0.20.", DeprecationWarning)
+no. of Chris training emails: 7936
+no. of Sara training emails: 7884
+BEFORE----
+len(features_train)
+15820
+len(labels_train)
+15820
+AFTER------
+len(features_train)
+158
+len(labels_train)
+158
+Time to train SVC(Kernel=RBF,C=10000.0): 0.0941 s
+Time to predict SVC(Kernel=RBF,C=10000.0): 0.002 s
+Time to predict SVC(Kernel=RBF,C=10000.0): 0.0 s
+Time to predict SVC(Kernel=RBF,C=10000.0): 0.0 s
+Prediction for 10th element 
+[1]
+Prediction for 26th element 
+[0]
+Prediction for 50th element 
+[1]
+C:\bsb\Tool\py\WinPython-64bit-3.6.0.1Qt5\python-3.6.0.amd64\lib\site-packages\sklearn\utils\validation.py:395: DeprecationWarning: Passing 1d arrays as data is deprecated in 0.17 and will raise ValueError in 0.19. Reshape your data either using X.reshape(-1, 1) if your data has a single feature or X.reshape(1, -1) if it contains a single sample.
+  DeprecationWarning)
+C:\bsb\Tool\py\WinPython-64bit-3.6.0.1Qt5\python-3.6.0.amd64\lib\site-packages\sklearn\utils\validation.py:395: DeprecationWarning: Passing 1d arrays as data is deprecated in 0.17 and will raise ValueError in 0.19. Reshape your data either using X.reshape(-1, 1) if your data has a single feature or X.reshape(1, -1) if it contains a single sample.
+  DeprecationWarning)
+C:\bsb\Tool\py\WinPython-64bit-3.6.0.1Qt5\python-3.6.0.amd64\lib\site-packages\sklearn\utils\validation.py:395: DeprecationWarning: Passing 1d arrays as data is deprecated in 0.17 and will raise ValueError in 0.19. Reshape your data either using X.reshape(-1, 1) if your data has a single feature or X.reshape(1, -1) if it contains a single sample.
+  DeprecationWarning)
+accuracy
+0.892491467577
+---
+Q. predictions with Cris ("1")
+no. of Chris training emails: 7936
+no. of Sara training emails: 7884
+BEFORE----
+len(features_train)
+15820
+len(labels_train)
+15820
+Time to train SVC(Kernel=RBF,C=10000.0): 100.1029 s
+Time to predict SVC(Kernel=RBF,C=10000.0): 10.7682 s
+Prediction for element 
+[0 0 1 ..., 1 0 0]
+ cris count 
+877
+accuracy
+0.990898748578
+
+
+----------
+Final Thoughts on Deploying SVMs
+Hopefully it’s becoming clearer what Sebastian meant when he said Naive Bayes is great for text--it’s faster and generally gives better performance than an SVM for this particular problem. Of course, there are plenty of other problems where an SVM might work better. Knowing which one to try when you’re tackling a problem for the first time is part of the art and science of machine learning. In addition to picking your algorithm, depending on which one you try, there are parameter tunes to worry about as well, and the possibility of overfitting (especially if you don’t have lots of training data).
+
+Our general suggestion is to try a few different algorithms for each problem. Tuning the parameters can be a lot of work, but just sit tight for now--toward the end of the class we will introduce you to GridCV, a great sklearn tool that can find an optimal parameter tune almost automatically.
+
+Changes for Python3 and SVM Mini Project
+SVM Mini Project Commit
+
+
+
