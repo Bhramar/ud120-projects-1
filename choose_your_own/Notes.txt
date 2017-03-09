@@ -1,0 +1,40 @@
+A critical skill for any data analyst is the ability to figure out new things about machine learning, which is the goal for this lesson. The whole lesson is a mini-project. The goal is to do terrain classification with an algorithm of your choice, researching and deploying it on your own.
+
+Your algorithm choices are the following:
+
+k nearest neighbors
+random forest
+adaboost (sometimes also called boosted decision tree)
+We can’t check your results, because there are too many combinations of algorithms and parameters to check everything that you could try, but you have seen the accuracy that our previous algorithms (Naive Bayes, SVM, decision tree) achieved and can self-assess whether the new algorithm does better.
+
+In the choose_your_own/your_algorithm.py file, you’ll find some starter code to get the data all set up for you. The following videos also give a little more background on the algorithms and process you should follow, but you’re mostly finding your own way here. Good luck!
+
+
+=======
+
+
+from sklearn.ensemble import RandomForestClassifier
+clf = RandomForestClassifier()
+
+from time import time
+t=time()
+clf = clf.fit(features_train,labels_train)
+print("Fitting Time : " , round(time()-t,4))
+t=time()
+pred = clf.predict(features_test)
+print("Predicting Time : " , round(time()-t,4))
+
+acc = clf.score(features_test,labels_test)
+print("Accuracy : " , acc)
+
+---
+Random Forest :
+Fitting Time :  0.017
+Predicting Time :  0.001
+Accuracy :  0.924
+
+-----
+Adaboost
+Fitting Time :  0.072
+Predicting Time :  0.006
+Accuracy :  0.924

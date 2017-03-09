@@ -42,7 +42,7 @@ print(len(labels_train))
 from sklearn.svm import SVC
 clf = SVC(kernel="rbf",C=10000.0)
 t0=time()
-clf.fit(features_train,labels_train)
+clf = clf.fit(features_train,labels_train)
 print("Time to train SVC(Kernel=RBF,C=10000.0):",round(time()-t0,4),"s")
 
 t1=time()
